@@ -1,9 +1,13 @@
 from django.urls import path
 
 from atomic_habits.apps import AtomicHabitsConfig
-from atomic_habits.views import (HabitsCreateAPIView, HabitsDestroyAPIView,
-                                 HabitsListAPIView, HabitsRetrieveAPIView,
-                                 HabitsUpdateAPIView)
+from atomic_habits.views import (
+    HabitsCreateAPIView,
+    HabitsDestroyAPIView,
+    HabitsListAPIView,
+    HabitsRetrieveAPIView,
+    HabitsUpdateAPIView,
+)
 
 app_name = AtomicHabitsConfig.name
 

@@ -2,10 +2,12 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from atomic_habits.models import Habits
-from atomic_habits.validators import (validate_execution_time,
-                                      validate_frequency,
-                                      validate_no_both_addition_and_award,
-                                      validate_pleasant_habit)
+from atomic_habits.validators import (
+    validate_execution_time,
+    validate_frequency,
+    validate_no_both_addition_and_award,
+    validate_pleasant_habit,
+)
 
 
 class HabitsSerializer(ModelSerializer):
