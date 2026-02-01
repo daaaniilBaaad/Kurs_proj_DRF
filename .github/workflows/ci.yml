@@ -55,7 +55,6 @@ jobs:
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
           echo "DEBUG=False" >> .env
           echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> .env
-          EOF
 
       - name: Run migrations
         run: |
