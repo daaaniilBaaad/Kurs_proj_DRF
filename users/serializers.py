@@ -4,7 +4,8 @@ from users.models import User
 
 
 class UserSerializer(ModelSerializer):
-    """ Класс сериализатора модели пользователя """
+    """Класс сериализатора модели пользователя"""
+
     class Meta:
         model = User
-        fields = '__all__'
+        fields = "__all__"
