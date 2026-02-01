@@ -15,3 +15,12 @@
 
 После запуска веб-приложение будет доступно по адресу: http://127.0.0.1:8000
 IP адрес сервера ВМ: 130.193.44.35
+
+### Проект разворачивается через GitHub Actions
+Создайте следующие секреты: SSH_USER, SSH_KEY, SERVER_IP, DOCKER_HUB_USERNAME, DOCKER_HUB_ACCESS_TOKEN, SECRET_KEY, DEPLOY_DIR
+
+### Проект использует docker-compose для запуска всех сервисов
+Запуск
+``` docker-compose up -d --duild ```
+Остановка
+``` docker-compose down ```
