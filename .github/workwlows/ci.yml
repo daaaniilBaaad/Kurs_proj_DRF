@@ -33,7 +33,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - python: Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
@@ -52,10 +52,9 @@ jobs:
 
       - name: Create .env file for CI
         run: |
-          cat > .env <<EOF
-          SECRET_KEY=${{ secrets.SECRET_KEY }}
-          DEBUG=False
-          ALLOWED_HOSTS=localhost,127.0.0.1
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
+          echo "DEBUG=False" >> .env
+          echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> .env
           EOF
 
       - name: Run migrations
