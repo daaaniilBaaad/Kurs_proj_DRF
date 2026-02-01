@@ -103,11 +103,42 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest
-          docker stop myapp || true
-          docker rm -f myapp || true
-          docker run -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest
+            IMAGE=${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest
+            CONTAINER=myapp-${GITHUB_SHA::7}
+
+            # Останавливаем старый контейнер, если он есть
+            OLD_CONTAINER=$(docker ps -q -f name=myapp)
+            if [ "$OLD_CONTAINER" ]; then
+                docker stop myapp
+                docker rm -f myapp
+            fi
+
+            # Запускаем новый контейнер с уникальным именем
+            docker run -d --name $CONTAINER -p 80:8000 $IMAGE
+
+            # Обновляем "symlink" для стабильного имени myapp (опционально)
+            docker rm -f myapp || true
+            docker rename $CONTAINER myapp || true
           EOF
+
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: build
+#
+#    steps:
+#      - name: Set up SSH
+#        uses: webfactory/ssh-agent@v0.9.0
+#        with:
+#          ssh-private-key: ${{ secrets.SSH_KEY }}
+#
+#      - name: Deploy to server
+#        run: |
+#          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+#          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest
+#          docker stop myapp || true
+#          docker rm -f myapp || true
+#          docker run -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest
+#          EOF
 
 #      - name: Copy project files to server
 #        run: |
