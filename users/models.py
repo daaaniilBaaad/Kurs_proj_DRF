@@ -1,6 +1,6 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class UserManager(BaseUserManager):
@@ -30,20 +30,24 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     username = None
-    email = models.EmailField(unique=True, verbose_name='email')
-    avatar = models.ImageField(upload_to='users/avatars', verbose_name='avatar', blank=True, null=True)
-    phone = models.CharField(max_length=15, verbose_name='phone', blank=True, null=True)
-    city = models.CharField(max_length=50, help_text='Введите страну', blank=True)
-    tg_chat_id = models.CharField(max_length=100, verbose_name='ID чата телеграм', blank=True)
+    email = models.EmailField(unique=True, verbose_name="email")
+    avatar = models.ImageField(
+        upload_to="users/avatars", verbose_name="avatar", blank=True, null=True
+    )
+    phone = models.CharField(max_length=15, verbose_name="phone", blank=True, null=True)
+    city = models.CharField(max_length=50, help_text="Введите страну", blank=True)
+    tg_chat_id = models.CharField(
+        max_length=100, verbose_name="ID чата телеграм", blank=True
+    )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     objects = UserManager()
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
 
     def __str__(self):
         return self.email
